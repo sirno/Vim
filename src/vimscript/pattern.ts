@@ -207,6 +207,10 @@ export class Pattern {
         string('|')
           .then(eof)
           .map(() => ({ emptyBranch: true })), // Trailing | matches everything
+        string('\\(').map(() => '('),
+        string('\\)').map(() => ')'),
+        string('(').map(() => '\\('),
+        string(')').map(() => '\\)'),
         string('\\')
           .then(any.fallback(undefined))
           .map((escaped) => {
